@@ -54,13 +54,7 @@ class StickerModal extends React.Component {
     var obj= {
       title: this.state.title,
       imgObj:this.state.imgObj,
-      key:'',
-      isDragging: false, 
-      isResizing: false, 
-      top:0, 
-      left: 0,   
-      width:150, 
-      height:150 
+      key:''
     };
 
     this.props.uploadSticker(obj);
