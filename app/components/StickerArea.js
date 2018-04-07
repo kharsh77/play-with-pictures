@@ -1,6 +1,7 @@
 var React= require('react')
 var Sticker= require('./Sticker.js')
-import Draggable from 'react-draggable'; // The default
+// import Draggable from 'react-draggable'; // The default
+// import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
 class StickerArea extends React.Component{
 
@@ -21,13 +22,11 @@ class StickerArea extends React.Component{
 
     let html;
     html= (this.state.stickers).map((obj) => (
-            
             <Sticker title={obj.title}
-                           imgObj = {obj.imgObj}
-                           id= {obj.key}
-                           key={obj.key}
+                 imgObj = {obj.imgObj}
+                 id= {obj.key}
+                 key={obj.key}
             />
-            
           ))
 
     return( 

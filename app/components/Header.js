@@ -13,14 +13,12 @@ class Header extends React.Component{
   refershClick(){
     this.props.refreshFn();
   }
-
-
-
+  
   render(){
     return(
         <div className="header">
           <a className="c-button" onClick={this.refershClick}>
-
+            Start Over
           </a>
           <span className='heading'> My App </span>
           <a className="c-button s-button"><StickerModal uploadSticker={this.props.uploadSticker}/></a>

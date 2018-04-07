@@ -19,8 +19,10 @@ class StickerModal extends React.Component {
     super();
     this.state = {
       showModal: false,
-      title:'',
-      imgObj:[]
+      title:"",
+      imgObj:"",
+      buttonBlur: true,
+      errors:[]
     };
     
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -28,6 +30,8 @@ class StickerModal extends React.Component {
     this.handleImgUpload= this.handleImgUpload.bind(this);
     this.handleImgTitle= this.handleImgTitle.bind(this);
     this.handleSubmit= this.handleSubmit.bind(this);
+    this.checkValidImage= this.checkValidImage.bind(this);
+    this.checkTitle= this.checkTitle.bind(this);
   }
   
   handleOpenModal () {
@@ -35,20 +39,90 @@ class StickerModal extends React.Component {
   }
   
   handleCloseModal () {
-    this.setState({ showModal: false });
+    this.setState({
+      showModal: false,
+      title:"",
+      imgObj:"",
+      buttonBlur: true,
+      errors:[]
+    })
   }
 
   handleImgUpload(input) {
-    if (input.files && input.files[0]) {
+    var error;
+    var arr= this.state.errors;
 
-        this.setState({imgObj: input});
+    if (this.checkValidImage(input)) {
+
+    }else{
+      if(!this.state.imgObj) error=3;
+
+      arr.push(error);
+      this.setState({errors: arr});
     }
+
+  }
+
+  checkValidImage(input){
+    
+    var arr= this.state.errors;
+    
+    if(input && input.files[0]){
+      if((input.files[0].type).substring(0, 5) == 'image') {
+      // this is an image
+        if(input.files[0].size <500000){
+          arr.filter(e => e !== 3);
+          arr.filter(e => e !== 4);
+          arr.filter(e => e !== 5);
+
+          var buttonBlur= (this.state.title.length == 0);
+          this.setState({imgObj: input, errors: arr, buttonBlur: buttonBlur});
+          return true;
+        } else {
+          // invalid filesize
+          arr.push(5);
+          this.setState({errors: arr});
+          return false;
+        }
+      }else {
+        // invalid image
+        arr.push(4);
+        this.setState({errors: arr});
+        return false;
+      }     
+    }else{
+       // empty image file
+      arr.push(3);
+      this.setState({errors: arr});
+      return false;
+    }
+
   }
 
   handleImgTitle(e){
-    // e.preventDefault();
-    this.setState({title: e.value});
+    var error;
+    var arr= this.state.errors;
+
+    if (this.checkTitle(e.value)){
+      arr.filter(e => e !== 1);
+      arr.filter(e => e !== 2);
+
+      var buttonBlur= this.state.imgObj.length ==0;
+      this.setState({title: e.value, errors: arr, buttonBlur:buttonBlur});
+
+    }else{
+      if(! e.value) error= 1
+        else error=2
+        
+      arr.push(error);
+      this.setState({errors: arr});
+    }
   }
+
+  checkTitle(input){
+    return (/^[a-zA-Z- ]{1,30}$/.test(input))
+  }
+
 
   handleSubmit(){
     var obj= {
@@ -61,27 +135,81 @@ class StickerModal extends React.Component {
 
     this.handleCloseModal();
   };
+
   
-  render () {
+  render () { 
+    var submitButton="";
+
+    if(this.state.buttonBlur){
+      submitButton= <button type="button" style={{backgroundColor: '#b5b1b1', color:'white' }}> Submit</button>
+    }else{
+      submitButton= <button  onClick={this.handleSubmit}> Submit</button>
+    }
+
+
     return (
-      <div>
-        <button onClick={this.handleOpenModal}>Trigger Modal</button>
+      <div id="sticker-modal">
+        <div className='c-button' onClick={this.handleOpenModal}>Upload a sticker</div>
         <Modal 
            isOpen={this.state.showModal}
            contentLabel="Minimal Modal Example"
            style= {customStyles}
         >
           <form >
-            Title:<input type="text" onChange={ (e) => this.handleImgTitle(e.target) }/> <br/>
+            Title: <input type="text" onChange={ (e) => this.handleImgTitle(e.target) }/> <br/>
             Sticker: <input type="file" onChange={ (e) => this.handleImgUpload(e.target) } /><br/>
             
           </form>
-          <button type="button" onClick={this.handleSubmit}> Submit</button>
+          {submitButton}
                   
           <button onClick={this.handleCloseModal}>Close Modal</button>
+
+          <ErrorDiv errors={this.state.errors} errorMsg= {this.state.errorMsg}/>
+
         </Modal>
       </div>
     );
+  }
+}
+
+class ErrorDiv extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
+  componentWillReceiveProps(){
+    var node= document.getElementById("submit-error");
+    node.innerHTML= "";
+  }
+  
+
+    render() {
+
+      const Errors= {
+        0: "",
+        1: "Sticker title can't be empty.",
+        2: "Sticker title is not valid.",
+        3: "Please choose a sticker image.",
+        4: "Uploaded sticker is not a valid image",
+        5: "Uploaded image size excceds the limits.(size <500kb is valid)"
+      };
+
+      var errorCodes= this.props.errors;
+
+      var display= errorCodes.length == 0 ? "none": "block";
+
+      var errorHtml= (errorCodes).map((obj) => (
+        <div>
+        <span>Errors: </span> 
+        <span style ={{color:"#ca0505"}}> {Error[obj]} </span>
+        </div>
+      ))
+
+      return (
+        <div id="submit-error" style ={{display:display, fontSize:"small"}}>
+          {errorHtml}
+        </div>
+    )
   }
 }
 

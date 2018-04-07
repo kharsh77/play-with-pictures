@@ -43,19 +43,22 @@ body {
     flex-direction: row;
 }
 
-.pic-area{
-  flex: 1 1 150px;	
+.pic-button{
+    flex: 1 1 150px;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-.pic-area img {
+.pic-area{
+  flex: 1 1 150px;
+}
+
+/*.pic-area img {
     max-height: 92vh;;
     max-width: 100%;
     border: 1px solid red;
-}
+}*/
 
 .sidenav {
     width: 150px;

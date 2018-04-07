@@ -2,9 +2,6 @@ var React= require('react')
 var Header= require('./Header.js')
 var PicArea= require('./PicArea.js')
 var StickerArea= require('./StickerArea.js')
-import DragResizeContainer, { DragResize } from 'react-drag-resize';
-
-
 
 class App extends React.Component{
   constructor(props){
@@ -42,14 +39,12 @@ class App extends React.Component{
     return(
       <div>
         <Header refreshFn={this.refershClick} uploadSticker={this.uploadSticker} />
-
-        <div className='content'>
+        <div id="content" className='content'>
           
           <PicArea drawActive={this.state.drawActive} activateDrawing={this.activateDrawing}/>
           <StickerArea stickers={this.state.stickers}/>
 
         </div>
-
       </div>
     )
   }
