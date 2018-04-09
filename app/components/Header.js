@@ -1,3 +1,6 @@
+// Header strip
+// Contains "Start Over" button and "Upload New Sticker" button
+
 var React= require('react')
 var StickerModal= require('./StickerModal.js')
 
@@ -5,8 +8,6 @@ var StickerModal= require('./StickerModal.js')
 class Header extends React.Component{
   constructor(props){
     super(props);
-
-
     this.refershClick= this.refershClick.bind(this);
   };
 
@@ -20,7 +21,10 @@ class Header extends React.Component{
           <a className="c-button" onClick={this.refershClick}>
             Start Over
           </a>
-          <span className='heading'> My App </span>
+          <div className="heading-div">
+            <div className='heading1'> Play with Pictures </div>
+            <p className="heading2"> Upload a Pic and add stickers on it.</p>
+          </div>
           <a className="c-button s-button"><StickerModal uploadSticker={this.props.uploadSticker}/></a>
         </div>
     )

@@ -1,7 +1,11 @@
-var React= require('react')
+// Sticker upload modal window
+// Validate sticker image upload and title of the sticker
+// Don't allow image greater than 500kb to upload
+
+var React= require('react');
 import Modal from 'react-modal';
 
-
+// Modal styles
 const customStyles = {
   content : {
     top                   : '20%',
@@ -33,11 +37,13 @@ class StickerModal extends React.Component {
     this.checkValidImage= this.checkValidImage.bind(this);
     this.checkTitle= this.checkTitle.bind(this);
   }
-  
+
+  // Triggers the modal to open
   handleOpenModal () {
     this.setState({ showModal: true });
   }
   
+  // Closes the modal and cleans previous state values
   handleCloseModal () {
     this.setState({
       showModal: false,
@@ -48,6 +54,7 @@ class StickerModal extends React.Component {
     })
   }
 
+  // Sticker image uploaded are handeled here
   handleImgUpload(input) {
     var error;
     var arr= this.state.errors;
@@ -63,6 +70,7 @@ class StickerModal extends React.Component {
 
   }
 
+  // Validate the uploaded image
   checkValidImage(input){
     
     var arr= this.state.errors;
@@ -98,7 +106,8 @@ class StickerModal extends React.Component {
     }
 
   }
-
+  
+  // Handles  entered sticker title 
   handleImgTitle(e){
     var error;
     var arr= this.state.errors;
@@ -119,11 +128,12 @@ class StickerModal extends React.Component {
     }
   }
 
+  // Validates the sticker title object
   checkTitle(input){
     return (/^[a-zA-Z- ]{1,30}$/.test(input))
   }
 
-
+  // When submit button of modal is clicked
   handleSubmit(){
     var obj= {
       title: this.state.title,
@@ -172,6 +182,8 @@ class StickerModal extends React.Component {
   }
 }
 
+
+// Error in sticker image or sticker title upload
 class ErrorDiv extends React.Component{
   constructor(props){
     super(props);
@@ -201,7 +213,7 @@ class ErrorDiv extends React.Component{
       var errorHtml= (errorCodes).map((obj) => (
         <div>
         <span>Errors: </span> 
-        <span style ={{color:"#ca0505"}}> {Error[obj]} </span>
+        <span style ={{color:"#ca0505"}}> {Errors[obj]} </span>
         </div>
       ))
 

@@ -3,6 +3,25 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+.heading-div{
+  width: 100%;
+}
+
+.heading1{
+    text-align: center;
+    width: 100%;
+    background-color: crimson;
+    font-size: 24px;
+    margin: 0;
+}
+
+.heading2{
+    font-size: 15px;
+    margin: 0;
+    padding: 2px;
+    text-align: center;
+    background-color: #c1bfbf;
+}
 
 .c-button{
     color: white;
@@ -21,7 +40,7 @@ body {
 }
 
 .s-button{
-    position: fixed;
+    position: initial;
     right: 0;
 }
 
@@ -54,12 +73,6 @@ body {
   flex: 1 1 150px;
 }
 
-/*.pic-area img {
-    max-height: 92vh;;
-    max-width: 100%;
-    border: 1px solid red;
-}*/
-
 .sidenav {
     width: 150px;
     background-color: #111;
@@ -79,4 +92,57 @@ body {
 .sticker img{
     width: 150px;
     height: 150px;
+}
+
+.sticker .delete-sticker{
+    display: none;
+    position: fixed;
+    right: 0px;
+}
+
+.sticker .delete-sticker{
+    /*display: none;*/
+    position: fixed;
+    right: 0px;
+}
+
+
+.sticker p:hover .delete-sticker, .sticker p.hover .delete-sticker {
+    display: inline; 
+}
+
+.pic-area .resizer{
+    width: 16px;
+    height: 16px;
+    /*background-color: #dc143c;*/
+    /*display: block;*/
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    display: block;
+    cursor: se-resize;
+    margin: 5px;
+    border-bottom: solid 2px #333;
+    border-right: solid 2px #333;
+}
+
+/*.pic-area .sticker-img:hover{
+    border: dotted 1px #333;
+}*/
+
+.sticker-img:hover .resizer, .sticker-img.hover .resizer{
+    display: block;
+}
+
+.sticker-img img{
+    height:100%;
+    width:100%;
+}
+
+
+.unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }

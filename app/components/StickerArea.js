@@ -1,21 +1,27 @@
-var React= require('react')
-var Sticker= require('./Sticker.js')
-// import Draggable from 'react-draggable'; // The default
-// import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
+// Side nav bar contains stickers
+
+var React= require('react');
+var Sticker= require('./Sticker.js');
+
 
 class StickerArea extends React.Component{
-
   constructor(props){
     super(props);
     this.state= {
       stickers: this.props.stickers
-    } 
+    };
+    this.deleteSticker= this.deleteSticker.bind(this);
+  }
+
+  // Deletes a sticker
+  deleteSticker(id){
+    var node= document.getElementById(id);
+    node.parentNode.removeChild(node)
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({stickers: nextProps.stickers})
   }
-
 
 
   render(){ 
@@ -26,6 +32,7 @@ class StickerArea extends React.Component{
                  imgObj = {obj.imgObj}
                  id= {obj.key}
                  key={obj.key}
+                 deleteSticker= {this.deleteSticker} 
             />
           ))
 
