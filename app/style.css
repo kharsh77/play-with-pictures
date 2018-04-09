@@ -121,9 +121,8 @@ body {
     bottom: 0px;
     display: block;
     cursor: se-resize;
-    margin: 5px;
-    border-bottom: solid 2px #333;
-    border-right: solid 2px #333;
+    border-bottom: solid 4px #000;
+    border-right: solid 4px #000;
 }
 
 /*.pic-area .sticker-img:hover{
