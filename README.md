@@ -3,6 +3,8 @@
 
 A react app where one can set a background picture and place multiples stickers on it.
 
+The tool can be used here: https://kharsh77.github.io/play-with-pictures/
+
 ==================================================================
 
 How to install:
